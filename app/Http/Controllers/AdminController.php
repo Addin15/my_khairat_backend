@@ -2,28 +2,27 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use App\Models\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
 
-class UserController extends Controller
+class AdminController extends Controller
 {
     function login(Request $request)
     {
-        $user = User::where('email', $request->email)->first();
+        $user = Admin::where('email', $request->email)->first();
         if (!$user || !Hash::check($request->password, $user->password)) {
             return response([
                 'message' => ['These credentials do not match our records.']
             ], 404);
         }
 
-        $token = $user->createToken('user-token')->plainTextToken;
+        $token = $user->createToken('admin-token')->plainTextToken;
 
         $response = [
             'user' => $user,
-            'token' => $token,
+            'token' => $token
         ];
 
         return response($response, 201);
@@ -33,15 +32,15 @@ class UserController extends Controller
     {
         $fields = $request->validate([
             'email' => 'required|string|unique:users,email',
-            'password' => 'required|string',
+            'password' => 'required|string'
         ]);
 
-        $user = User::create([
+        $user = Admin::create([
             'email' => $fields['email'],
             'password' => bcrypt($fields['password']),
         ]);
 
-        $token = $user->createToken('user-token')->plainTextToken;
+        $token = $user->createToken('admin-token')->plainTextToken;
 
         $response = [
             'user' => $user,
@@ -53,7 +52,6 @@ class UserController extends Controller
 
     function logout(Request $request)
     {
-
         auth('sanctum')->user()->tokens()->delete();
 
         return [

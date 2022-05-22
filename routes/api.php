@@ -3,6 +3,8 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\CommitteeController;
+use App\Http\Controllers\AdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,11 +22,25 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 // Login and register
+// ----- NORMAL USER -----
 Route::post('/login', [UserController::class, 'login']);
 Route::post('/register', [UserController::class, 'register']);
+// ----- COMMITTEE -----
+Route::post('/committee/login', [CommitteeController::class, 'login']);
+Route::post('/committee/register', [CommitteeController::class, 'register']);
+// ----- NORMAL USER -----
+Route::post('/admin/login', [AdminController::class, 'login']);
+Route::post('/admin/register', [AdminController::class, 'register']);
 
-// sanctum api
+
+
+// Protected
 Route::group(['middleware' => ['auth:sanctum']], function () {
-    Route::post('/logout', [UserController::class, 'logout']);
-});
 
+
+    Route::put('/committee/complete', [CommitteeController::class, 'complete']);
+
+    Route::post('/logout', [UserController::class, 'logout']);
+    Route::post('/committee/logout', [CommitteeController::class, 'logout']);
+    Route::post('/admin/logout', [AdminController::class, 'logout']);
+});
