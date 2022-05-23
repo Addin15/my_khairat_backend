@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CommitteeController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\VillageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,7 +29,7 @@ Route::post('/register', [UserController::class, 'register']);
 // ----- COMMITTEE -----
 Route::post('/committee/login', [CommitteeController::class, 'login']);
 Route::post('/committee/register', [CommitteeController::class, 'register']);
-// ----- NORMAL USER -----
+// ----- ADMIN -----
 Route::post('/admin/login', [AdminController::class, 'login']);
 Route::post('/admin/register', [AdminController::class, 'register']);
 
@@ -37,10 +38,19 @@ Route::post('/admin/register', [AdminController::class, 'register']);
 // Protected
 Route::group(['middleware' => ['auth:sanctum']], function () {
 
-
-    Route::put('/committee/complete', [CommitteeController::class, 'complete']);
-
+    // ----- NORMAL USER -----
     Route::post('/logout', [UserController::class, 'logout']);
+
+    // ----- COMMITTEE USER -----
+    //village
+    Route::post('/committee/villages/get', [VillageController::class, 'get']);
+    Route::post('/committee/villages/add', [VillageController::class, 'add']);
+    Route::put('/committee/villages/edit', [VillageController::class, 'edit']);
+    Route::post('/committee/villages/delete', [VillageController::class, 'delete']);
+    // profile
+    Route::put('/committee/complete', [CommitteeController::class, 'complete']);
     Route::post('/committee/logout', [CommitteeController::class, 'logout']);
+
+    // ----- ADMIN -----
     Route::post('/admin/logout', [AdminController::class, 'logout']);
 });

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Committee;
 use App\Models\CommitteeProfile;
+use App\Models\Village;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
@@ -23,10 +24,12 @@ class CommitteeController extends Controller
 
         $token = $user->createToken('committee-token')->plainTextToken;
         $profile = CommitteeProfile::where('mosque_id', $user->id)->first();
+        $villages = Village::where('mosque_id', $user->id)->get();
 
         $response = [
             'user' => $user,
             'profile' => $profile,
+            'villages' => $villages,
             'token' => $token,
         ];
 
