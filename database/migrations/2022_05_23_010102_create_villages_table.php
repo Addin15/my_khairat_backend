@@ -13,14 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('committee_profiles', function (Blueprint $table) {
-            $table->id('mosque_id');
+        Schema::create('villages', function (Blueprint $table) {
+            $table->id('village_id');
+            $table->unsignedBigInteger('mosque_id');
             $table->foreign('mosque_id')->references('id')->on('committees');
-            $table->string('mosque_name')->nullable();
-            $table->string('mosque_phone')->nullable();
-            $table->string('mosque_postcode')->nullable();
-            $table->string('mosque_state')->nullable();
-            $table->string('mosque_address')->nullable();
+            $table->string('village_name');
+            $table->string('village_address');
             $table->timestamps();
         });
     }
@@ -32,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('committee_profiles');
+        Schema::dropIfExists('villages');
     }
 };

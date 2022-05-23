@@ -68,6 +68,8 @@ class CommitteeController extends Controller
             'mosque_id' => 'required',
             'mosque_name' => 'required|string',
             'mosque_phone' => 'required|string',
+            'mosque_postcode' => 'required|string',
+            'mosque_state' => 'required|string',
             'mosque_address' => 'required|string',
         ]);
 
@@ -75,6 +77,8 @@ class CommitteeController extends Controller
             'mosque_name' => request('mosque_name'),
             'mosque_phone' => request('mosque_phone'),
             'mosque_address' => request('mosque_address'),
+            'mosque_postcode' => request('mosque_postcode'),
+            'mosque_state' => request('mosque_state'),
         ]);
 
         return response($profile, 201);
@@ -86,8 +90,10 @@ class CommitteeController extends Controller
 
         auth('sanctum')->user()->tokens()->delete();
 
-        return [
-            'message' => 'Logged out',
+        $response = [
+            'isLogOut' => true,
         ];
+
+        return response($response, 200);
     }
 }

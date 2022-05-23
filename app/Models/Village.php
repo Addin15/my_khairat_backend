@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class CommitteeProfile extends Model
+class Village extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'mosque_id', 'mosque_name', 'mosque_phone', 'mosque_postcode', 'mosque_state', 'mosque_address',
+        'mosque_id', 'village_name', 'village_address',
     ];
 }
