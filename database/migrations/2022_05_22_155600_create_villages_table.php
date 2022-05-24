@@ -14,9 +14,9 @@ return new class extends Migration
     public function up()
     {
         Schema::create('villages', function (Blueprint $table) {
-            $table->id('village_id');
+            $table->id();
             $table->unsignedBigInteger('mosque_id');
-            $table->foreign('mosque_id')->references('committee_id')->on('committees');
+            $table->foreign('mosque_id')->references('id')->on('committees');
             $table->string('village_name');
             $table->string('village_address');
             $table->timestamps();

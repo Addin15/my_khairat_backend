@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('committees', function (Blueprint $table) {
-            $table->id('committee_id');
+            $table->id();
             $table->string('email')->unique();
             $table->string('password');
             $table->timestamps();
