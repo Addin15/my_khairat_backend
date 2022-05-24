@@ -39,9 +39,9 @@ class PaymentController extends Controller
 
     //edit
     function action(Request $request) {
-        $id = request('payment_id');
+        $id = request('id');
 
-        $response = Payment::where('payment_id', $id)->update([
+        $response = Payment::where('id', $id)->update([
             'status' => request('status'),
         ]);
 
@@ -50,9 +50,9 @@ class PaymentController extends Controller
 
     //delete
     function delete(Request $request) {
-        $id = request('payment_id');
+        $id = request('id');
 
-        $response = Payment::where('payment_id', $id)->delete();
+        $response = Payment::where('id', $id)->delete();
 
         return response($response, 200);
     }
