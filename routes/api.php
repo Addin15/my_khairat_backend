@@ -6,6 +6,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\CommitteeController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\VillageController;
+use App\Http\Controllers\PaymentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,7 +43,11 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('/logout', [UserController::class, 'logout']);
 
     // ----- COMMITTEE USER -----
-    //village
+    //payments
+    Route::post('/committee/payments/get', [PaymentController::class, 'get']);
+    Route::put('/committee/payments/action', [PaymentController::class, 'action']);
+    Route::post('/committee/payments/delete', [PaymentController::class, 'delete']);
+    //villages
     Route::post('/committee/villages/get', [VillageController::class, 'get']);
     Route::post('/committee/villages/add', [VillageController::class, 'add']);
     Route::put('/committee/villages/edit', [VillageController::class, 'edit']);

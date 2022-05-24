@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('committee_profiles', function (Blueprint $table) {
             $table->id('mosque_id');
-            $table->foreign('mosque_id')->references('id')->on('committees');
+            $table->foreign('mosque_id')->references('committee_id')->on('committees');
             $table->string('mosque_name')->nullable();
             $table->string('mosque_phone')->nullable();
             $table->string('mosque_postcode')->nullable();
