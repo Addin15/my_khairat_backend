@@ -7,6 +7,7 @@ use App\Http\Controllers\CommitteeController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\VillageController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\AnnouncementController;
 
 /*
 |--------------------------------------------------------------------------
@@ -52,6 +53,21 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('/committee/villages/add', [VillageController::class, 'add']);
     Route::put('/committee/villages/edit', [VillageController::class, 'edit']);
     Route::post('/committee/villages/delete', [VillageController::class, 'delete']);
+    //villages
+    Route::post('/committee/announcements/get', [AnnouncementController::class, 'getAnnouncements']);
+    Route::post('/committee/announcements/add', [AnnouncementController::class, 'addAnnouncement']);
+    Route::put('/committee/announcements/edit', [AnnouncementController::class, 'editAnnouncement']);
+    Route::post('/committee/announcements/delete', [AnnouncementController::class, 'deleteAnnouncement']);
+    //graves
+    Route::post('/committee/graves/get', [GraveController::class, 'getGraves']);
+    Route::post('/committee/graves/add', [GraveController::class, 'addGrave']);
+    Route::put('/committee/graves/edit', [GraveController::class, 'editGrave']);
+    Route::post('/committee/graves/delete', [GraveController::class, 'deleteGrave']);
+    //grave lots
+    Route::post('/committee/graves/lots/get', [GraveController::class, 'getLots']);
+    Route::post('/committee/graves/lots/add', [GraveController::class, 'addLot']);
+    Route::put('/committee/graves/lots/edit', [GraveController::class, 'editLot']);
+    Route::post('/committee/graves/lots/delete', [GraveController::class, 'deleteLot']);
     // profile
     Route::put('/committee/complete', [CommitteeController::class, 'complete']);
     Route::post('/committee/logout', [CommitteeController::class, 'logout']);
