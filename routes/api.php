@@ -31,9 +31,12 @@ Route::post('/register', [UserController::class, 'register']);
 // ----- COMMITTEE -----
 Route::post('/committee/login', [CommitteeController::class, 'login']);
 Route::post('/committee/register', [CommitteeController::class, 'register']);
-// ----- ADMIN -----
+// ----- ADMIN ----
 Route::post('/admin/login', [AdminController::class, 'login']);
 Route::post('/admin/register', [AdminController::class, 'register']);
+
+Route::get('/mosque/all', [CommitteeController::class, 'getMosques']);
+Route::get('/mosque/{mosque_id}/village/all', [CommitteeController::class, 'getVillages']);
 
 
 
@@ -41,6 +44,8 @@ Route::post('/admin/register', [AdminController::class, 'register']);
 Route::group(['middleware' => ['auth:sanctum']], function () {
 
     // ----- NORMAL USER -----
+    Route::post('/user', [UserController::class, 'getUser']);
+    Route::put('/complete', [UserController::class, 'complete']);
     Route::post('/logout', [UserController::class, 'logout']);
 
     // ----- COMMITTEE USER -----

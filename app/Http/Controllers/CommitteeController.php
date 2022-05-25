@@ -24,12 +24,10 @@ class CommitteeController extends Controller
 
         $token = $user->createToken('committee-token')->plainTextToken;
         $profile = CommitteeProfile::where('mosque_id', $user->id)->first();
-        $villages = Village::where('mosque_id', $user->id)->get();
 
         $response = [
             'user' => $user,
             'profile' => $profile,
-            'villages' => $villages,
             'token' => $token,
         ];
 
@@ -96,6 +94,20 @@ class CommitteeController extends Controller
         $response = [
             'isLogOut' => true,
         ];
+
+        return response($response, 200);
+    }
+
+    function getMosques(Request $request)
+    {
+        $response = CommitteeProfile::all();
+
+        return response($response, 200);
+    }
+
+    function getVillages(Request $request)
+    {
+        $response = Village::where('mosque_id', request('mosque_id'))->get();
 
         return response($response, 200);
     }
