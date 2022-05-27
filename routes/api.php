@@ -8,6 +8,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\VillageController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\AnnouncementController;
+use App\Http\Controllers\GraveController;
 
 /*
 |--------------------------------------------------------------------------
@@ -58,7 +59,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('/committee/villages/add', [VillageController::class, 'add']);
     Route::put('/committee/villages/edit', [VillageController::class, 'edit']);
     Route::post('/committee/villages/delete', [VillageController::class, 'delete']);
-    //villages
+    //announcements
     Route::post('/committee/announcements/get', [AnnouncementController::class, 'getAnnouncements']);
     Route::post('/committee/announcements/add', [AnnouncementController::class, 'addAnnouncement']);
     Route::put('/committee/announcements/edit', [AnnouncementController::class, 'editAnnouncement']);

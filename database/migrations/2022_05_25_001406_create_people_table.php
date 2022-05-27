@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('people', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('user_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users');
             $table->unsignedBigInteger('mosque_id')->nullable();
             $table->foreign('mosque_id')->references('id')->on('committees');
@@ -30,6 +30,9 @@ return new class extends Migration
             $table->string('person_details_prove')->nullable();
             $table->string('person_register_date')->nullable();
             $table->string('person_payment_prove')->nullable();
+            $table->integer('person_expire_month')->nullable();
+            $table->integer('person_expire_year')->nullable();
+            $table->integer('person_member_no')->nullable();
             $table->unsignedBigInteger('person_borner')->nullable();
             $table->foreign('person_borner')->references('user_id')->on('people');
             $table->timestamps();

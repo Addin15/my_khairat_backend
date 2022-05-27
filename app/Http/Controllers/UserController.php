@@ -44,11 +44,28 @@ class UserController extends Controller
             'email' => $fields['email'],
             'password' => bcrypt($fields['password']),
         ]);
+        
+        $existed = Person::where('person_ic', $fields['ic'])->first();
 
-        $person = Person::create([
-            'user_id' => $user->id,
-            'person_ic' => $fields['ic'],
-        ]);
+        if($existed && $existed->user_id == "") {
+            $person = Person::where('person_ic', $fields['ic'])->update([
+                'user_id' => $user->id,
+                'person_status' => 'new',
+            ]);
+        } else if($existed && $existed->user_id != "") {
+            User::where('email', $fields['email'])->first()->delete();
+
+            return response([
+                'message' => ['User using this IC already exist!']
+            ], 404);
+        }   else {
+            $person = Person::create([
+                'user_id' => $user->id,
+                'person_ic' => $fields['ic'],
+                'user_status' => 'new',
+            ]);
+        }     
+        
 
         $token = $user->createToken('user-token')->plainTextToken;
 
@@ -106,7 +123,7 @@ class UserController extends Controller
             'person_occupation' => request('person_occupation'),
             'person_details_prove' => request('person_details_prove'),
             'person_payment_prove' => request('person_payment_prove'),
-            'person_status' => request('person_status'),
+            'person_status' => 'pending',
         ]);
 
         return response($person, 201);
