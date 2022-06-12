@@ -9,6 +9,7 @@ use App\Http\Controllers\VillageController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\GraveController;
+use App\Http\Controllers\DependentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,6 +49,11 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('/user', [UserController::class, 'getUser']);
     Route::put('/complete', [UserController::class, 'complete']);
     Route::post('/logout', [UserController::class, 'logout']);
+    //dependent
+    Route::post('/dependents/get', [DependentController::class, 'getDependent']);
+    Route::post('/dependents/add', [DependentController::class, 'addDependent']);
+    Route::put('/dependents/edit', [DependentController::class, 'editDependent']);
+    Route::post('/dependents/delete', [DependentController::class, 'deleteDependent']);
 
     // ----- COMMITTEE USER -----
     //payments
