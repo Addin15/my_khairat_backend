@@ -50,7 +50,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::put('/complete', [UserController::class, 'complete']);
     Route::post('/logout', [UserController::class, 'logout']);
     //dependent
-    Route::post('/dependents/get', [DependentController::class, 'getDependent']);
+    Route::post('/dependents/get', [DependentController::class, 'getDependents']);
     Route::post('/dependents/add', [DependentController::class, 'addDependent']);
     Route::put('/dependents/edit', [DependentController::class, 'editDependent']);
     Route::post('/dependents/delete', [DependentController::class, 'deleteDependent']);

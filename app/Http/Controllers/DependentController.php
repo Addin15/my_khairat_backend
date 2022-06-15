@@ -9,7 +9,7 @@ class DependentController extends Controller
 {
     //
         //get
-        function getDependent(Request $request) {
+        function getDependents(Request $request) {
             $user = request('user_id');
     
             $response = Dependent::where('user_id', $user)->get();
