@@ -15,4 +15,18 @@ class ClaimController extends Controller
 
         return response($response,200);
     }
+
+    //add
+    function addClaim(Request $request) {
+        $claim = request('claim_id');
+
+        $response = Grave::create([
+            'claimer_id' => $claim,
+            'claimer_name' => request('claimer_name'),
+            'claimer_village' => request('claimer_village'),
+            'claimer_url' => request('grave_url'),
+        ]);
+
+        return response($response, 201);
+    }
 }
