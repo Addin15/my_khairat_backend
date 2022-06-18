@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Person;
+use App\Models\Dependent;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
@@ -64,6 +65,8 @@ class UserController extends Controller
                 'person_ic' => $fields['ic'],
                 'user_status' => 'new',
             ]);
+            $dependentsame = Dependent::where('dependent_ic', $fields['ic'])->delete();
+
         }     
         
 
@@ -73,6 +76,7 @@ class UserController extends Controller
             'user' => $user,
             'person' => $person,
             'token' => $token,
+            'dependentsame' => $dependentsame,
         ];
 
         return response($response, 201);
