@@ -5,10 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\Committee;
 use App\Models\CommitteeProfile;
 use App\Models\Village;
+use App\Models\Person;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
 
 class CommitteeController extends Controller
 {
@@ -110,5 +112,32 @@ class CommitteeController extends Controller
         $response = Village::where('mosque_id', request('mosque_id'))->get();
 
         return response($response, 200);
+    }
+
+    function getMembers(Request $request)
+    {
+        $response = DB::table('people')
+        ->join('villages', 'people.village_id', '=', 'villages.id')
+        ->select('people.*', 'villages.village_name')
+        ->get();
+
+        return response($response, 200);
+    }
+
+    function addMembers(Request $request)
+    {
+        $response = Person::create([
+            'person_member_no' => request('person_member_no'),
+            'person_name' => request('person_name'),
+            'person_ic' => request('person_ic'),
+            'person_phone' => request('person_phone'),
+            'person_occupation' => request('person_occupation'),
+            'person_address' => request('person_address'),
+            'mosque_id' => request('mosque_id'),
+            'village_id' => request('village_id'),
+            'person_status' => 'completed',
+        ]);
+
+        return response($response, 201);
     }
 }

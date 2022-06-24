@@ -64,6 +64,9 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('/committee/payments/get', [PaymentController::class, 'get']);
     Route::put('/committee/payments/action', [PaymentController::class, 'action']);
     Route::post('/committee/payments/delete', [PaymentController::class, 'delete']);
+    //members
+    Route::post('/committee/members/get', [CommitteeController::class, 'getMembers']);
+    Route::post('/committee/members/add', [CommitteeController::class, 'addMembers']);
     //villages
     Route::post('/committee/villages/get', [VillageController::class, 'get']);
     Route::post('/committee/villages/add', [VillageController::class, 'add']);

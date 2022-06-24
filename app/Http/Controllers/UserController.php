@@ -63,7 +63,7 @@ class UserController extends Controller
             $person = Person::create([
                 'user_id' => $user->id,
                 'person_ic' => $fields['ic'],
-                'user_status' => 'new',
+                'person_status' => 'new',
             ]);
             $dependentsame = Dependent::where('dependent_ic', $fields['ic'])->delete();
 
