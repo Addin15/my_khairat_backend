@@ -58,6 +58,9 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     //report deaths
     Route::post('/dependents/deaths/get', [DeathController::class, 'getDependents']);
     Route::post('/dependents/deaths/add', [DeathController::class, 'addDeath']);
+    //claim
+    Route::post('/claim/get', [ClaimController::class, 'getlaimC']);
+    Route::post('/claim/add', [ClaimController::class, 'addClaim']);
 
     // ----- COMMITTEE USER -----
     //payments

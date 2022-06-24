@@ -14,7 +14,9 @@ return new class extends Migration
     public function up()
     {
         Schema::create('claims', function (Blueprint $table) {
-            $table->id('claim_id');
+            $table->id();
+            $table->unsignedBigInteger('claim_id');
+            $table->foreign('claim_id')->references('id')->on('user');
             $table->String('claimer_name');
             $table->String('claimer_ic');
             $table->String('claimer_village');

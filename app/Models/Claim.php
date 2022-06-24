@@ -14,5 +14,6 @@ class Claim extends Model
         'claimer_ic',
         'claimer_vollage',
         'claimer_url',
+        'status',
     ];
 }
