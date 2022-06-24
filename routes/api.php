@@ -11,6 +11,7 @@ use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\GraveController;
 use App\Http\Controllers\DependentController;
 use App\Http\Controllers\DeathController;
+use App\Http\Controllers\ClaimController;
 
 /*
 |--------------------------------------------------------------------------
@@ -59,10 +60,11 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('/dependents/deaths/get', [DeathController::class, 'getDependents']);
     Route::post('/dependents/deaths/add', [DeathController::class, 'addDeath']);
     //claim
-    Route::post('/claim/get', [ClaimController::class, 'getlaimC']);
-    Route::post('/claim/add', [ClaimController::class, 'addClaim']);
+    Route::post('/claims/add', [ClaimController::class, 'addClaim']);
 
     // ----- COMMITTEE USER -----
+    //claims
+    Route::post('/committee/claims/get', [ClaimController::class, 'getClaim']);
     //payments
     Route::post('/committee/payments/get', [PaymentController::class, 'get']);
     Route::put('/committee/payments/action', [PaymentController::class, 'action']);

@@ -10,9 +10,9 @@ class Claim extends Model
     use HasFactory;
     protected $fillable = [
         'claim_id',
+        'mosque_id',
         'claimer_name',
         'claimer_ic',
-        'claimer_vollage',
         'claimer_url',
         'status',
     ];

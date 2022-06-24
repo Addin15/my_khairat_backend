@@ -25,7 +25,7 @@ class PaymentController extends Controller
             'mosque_id' => $mosque,
             'payer_id' => $payer,
             'payment_date' => request('payment_date'),
-            'start_month' => request(start_month),
+            'start_month' => request('start_month'),
             'start_year' => request('start_year'),
             'end_month' => request('end_month'),
             'end_year' => request('end_year'),
