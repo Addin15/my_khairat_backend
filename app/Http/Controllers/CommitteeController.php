@@ -116,10 +116,15 @@ class CommitteeController extends Controller
 
     function getMembers(Request $request)
     {
+        $mosqueID = request('mosque_id');
+        $offset = request('offset');
+        $take = $offset + 50;
+
         $response = DB::table('people')
+        ->where('people.mosque_id', $mosqueID)
         ->join('villages', 'people.village_id', '=', 'villages.id')
         ->select('people.*', 'villages.village_name')
-        ->get();
+        ->skip($offset)->take($take)->get();
 
         return response($response, 200);
     }
@@ -135,9 +140,35 @@ class CommitteeController extends Controller
             'person_address' => request('person_address'),
             'mosque_id' => request('mosque_id'),
             'village_id' => request('village_id'),
+            'person_expire_month' => request('person_expire_month'),
+            'person_expire_year' => request('person_expire_year'),
             'person_status' => 'completed',
         ]);
 
         return response($response, 201);
+    }
+
+    function acceptMember(Request $request)
+    {
+        $mosqueID = request('mosque_id');
+        $memberID = request('id');
+
+        $response = Person::where('mosque_id', $mosqueID)->where('id', $memberID)->update([
+            'person_status' => 'completed',
+        ]);
+
+        return response($response, 200);
+    }
+
+    function rejectMember(Request $request)
+    {
+        $mosqueID = request('mosque_id');
+        $memberID = request('id');
+
+        $response = Person::where('mosque_id', $mosqueID)->where('id', $memberID)->update([
+            'person_status' => 'rejected',
+        ]);
+
+        return response($response, 200);
     }
 }
