@@ -31,6 +31,7 @@ class DependentController extends Controller
                 'dependent_address' => request('dependent_address'),
                 'death_status' => request('death_status'),
                 'death_date' => request('death_date'),
+                'verify' => request('verify'),
             ]);
     
             return response($response, 201);
@@ -49,6 +50,7 @@ class DependentController extends Controller
                 'dependent_address' => request('dependent_address'),
                 'death_status' => request('death_status'),
                 'death_date' => request('death_date'),
+                'verify' => request('verify'),
             ]);
     
             return response($response, 200);

@@ -18,5 +18,6 @@ class Dependent extends Model
         'dependent_address',
         'death_status',
         'death_date',
+        'verify',
     ];
 }

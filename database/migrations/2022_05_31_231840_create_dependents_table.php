@@ -25,6 +25,7 @@ return new class extends Migration
             $table->string('dependent_address')->nullable();
             $table->string('death_status')->nullable();
             $table->string('death_date')->nullable();
+            $table->string('verify')->nullable();
             $table->timestamps();
         });
     }
