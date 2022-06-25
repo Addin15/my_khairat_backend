@@ -95,7 +95,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::put('/committee/graves/lots/edit', [GraveController::class, 'editLot']);
     Route::post('/committee/graves/lots/delete', [GraveController::class, 'deleteLot']);
     // profile
-    Route::put('/committee/complete', [CommitteeController::class, 'complete']);
+    Route::resource('/committee/complete', CommitteeController::class);
     Route::post('/committee/logout', [CommitteeController::class, 'logout']);
 
     // ----- ADMIN -----

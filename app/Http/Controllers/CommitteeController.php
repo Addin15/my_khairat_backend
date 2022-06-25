@@ -11,6 +11,7 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class CommitteeController extends Controller
 {
@@ -65,26 +66,55 @@ class CommitteeController extends Controller
     }
 
     // -- COMPLETE PROFILE --
-    function complete(Request $request)
+    function store(Request $request)
     {
-        $fields = $request->validate([
-            'mosque_id' => 'required',
-            'mosque_name' => 'required|string',
-            'mosque_phone' => 'required|string',
-            'mosque_postcode' => 'required|string',
-            'mosque_state' => 'required|string',
-            'mosque_address' => 'required|string',
-        ]);
+        // $fields = $request->validate([
+        //     'mosque_id' => 'required',
+        //     'mosque_name' => 'required|string',
+        //     'mosque_phone' => 'required|string',
+        //     'mosque_postcode' => 'required|string',
+        //     'mosque_state' => 'required|string',
+        //     'mosque_address' => 'required|string',
+        //     'mosque_registration_prove' => 'required',
+        // ]);
 
-        $profile = CommitteeProfile::where('mosque_id', request('mosque_id'))->update([
-            'mosque_name' => request('mosque_name'),
-            'mosque_phone' => request('mosque_phone'),
-            'mosque_address' => request('mosque_address'),
-            'mosque_postcode' => request('mosque_postcode'),
-            'mosque_state' => request('mosque_state'),
-        ]);
+        $mosqueID = request('mosque_id');
 
-        return response($profile, 201);
+        if($request->hasFile('image')) {
+          
+            //get filename with extension
+            $filenamewithextension = $request->file('image')->getClientOriginalName();
+      
+            //get filename without extension
+            $filename = pathinfo($filenamewithextension, PATHINFO_FILENAME);
+      
+            //get file extension
+            $extension = $request->file('image')->getClientOriginalExtension();
+      
+            //filename to store
+            $filenametostore = $filename.'_'.uniqid().'.'.$extension;
+      
+            //Upload File to external server
+            Storage::disk('ftp')->put('committee_registration_prove/'.$filenametostore, fopen($request->file('image'), 'r+'));
+      
+            //Store $filenametostore in the database
+            $profile = CommitteeProfile::where('mosque_id', $mosqueID)->update([
+                'mosque_name' => request('mosque_name'),
+                'mosque_phone' => request('mosque_phone'),
+                'mosque_address' => request('mosque_address'),
+                'mosque_postcode' => request('mosque_postcode'),
+                'mosque_state' => request('mosque_state'),
+                'mosque_registration_prove' => '/images/committee_registration_prove/'.$filenametostore,
+            ]);
+
+            return response($profile, 201);
+        }
+
+        return response([
+            'message' => 'no image',
+        ], 200);
+
+        //return response($profile, 201);
     }
 
     // -- LOG OUT --
@@ -123,7 +153,7 @@ class CommitteeController extends Controller
         $response = DB::table('people')
         ->where('people.mosque_id', $mosqueID)
         ->join('villages', 'people.village_id', '=', 'villages.id')
-        ->select('people.*', 'villages.village_name')
+        ->select('people.*', 'villages.village_name',)
         ->skip($offset)->take($take)->get();
 
         return response($response, 200);

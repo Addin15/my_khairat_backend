@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('mosque_postcode')->nullable();
             $table->string('mosque_state')->nullable();
             $table->string('mosque_address')->nullable();
+            $table->string('mosque_registration_prove')->nullable();
             $table->timestamps();
         });
     }
