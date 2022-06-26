@@ -22,6 +22,10 @@ return new class extends Migration
             $table->string('mosque_state')->nullable();
             $table->string('mosque_address')->nullable();
             $table->string('mosque_registration_prove')->nullable();
+            $table->string('mosque_bank_name')->nullable();
+            $table->string('mosque_bank_owner_name')->nullable();
+            $table->string('mosque_bank_no')->nullable();
+            $table->double('mosque_monthly_fee')->nullable();
             $table->timestamps();
         });
     }

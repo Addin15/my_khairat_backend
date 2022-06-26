@@ -104,6 +104,10 @@ class CommitteeController extends Controller
                 'mosque_address' => request('mosque_address'),
                 'mosque_postcode' => request('mosque_postcode'),
                 'mosque_state' => request('mosque_state'),
+                'mosque_bank_name' => request('mosque_bank_name'),
+                'mosque_bank_owner_name' => request('mosque_bank_owner_name'),
+                'mosque_bank_no' => request('mosque_bank_no'),
+                'mosque_monthly_fee' => request('mosque_monthly_fee'),
                 'mosque_registration_prove' => '/images/committee_registration_prove/'.$filenametostore,
             ]);
 
