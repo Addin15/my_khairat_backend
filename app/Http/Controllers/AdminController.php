@@ -63,23 +63,73 @@ class AdminController extends Controller
         
     }
 
-    public function bankUpdate() {
+    public function bankUpdate(Request $request) {
+        $request->validate([
+            'bankName' => 'required|string',
+            'bankOwnerName' => 'required|string',
+            'bankAccountNo' => 'required|string',
+            'monthlyFee' => 'required',
+        ]);
+
+
         $bankName = request('bankName');
         $bankOwnerName = request('bankOwnerName');
         $bankAccountNo = request('bankAccountNo');
         $monthlyFee = request('monthlyFee');
 
-        $result = PaymentDetail::where('id', 1)->update([
-            'bank_name' => $bankName,
-            'bank_owner_name' => $bankOwnerName,
-            'bank_account_no' => $bankAccountNo,
-            'monthly_fee' => $monthlyFee,
-        ]);
+        $existing = PaymentDetail::all()->first();
 
-        return redirect('admin/bank', [
-            'success' => 'Successfully updated',
+        if($existing) {
+            $updated = PaymentDetail::where('id', $existing->id)->update([
+                'bank_name' => $bankName,
+                'bank_owner_name' => $bankOwnerName,
+                'bank_account_no' => $bankAccountNo,
+                'monthly_fee' => $monthlyFee,
+            ]);
+
+            if($updated) {
+                $payment = PaymentDetail::all()->first();
+            }
+
+        } else {
+            $inserted = PaymentDetail::create([
+                'bank_name' => $bankName,
+                'bank_owner_name' => $bankOwnerName,
+                'bank_account_no' => $bankAccountNo,
+                'monthly_fee' => (double)$monthlyFee,
+            ]);
+
+            if($inserted) {
+                $payment = PaymentDetail::all()->first();
+            }
+        }
+        
+
+        return view('admin.bank_details', [
+            'success' => 'successfully updated',
+            'payment' => $payment,
         ]);
         
+    }
+
+    public function acceptCommittee(Request $request) {
+        $id = request('id');
+
+        CommitteeProfile::where('mosque_id', $id)->update([
+            'mosque_status' => 'completed',
+        ]);
+
+        return redirect('admin');
+    }
+
+    public function rejectCommittee() {
+        $id = request('id');
+
+        CommitteeProfile::where('mosque_id', $id)->update([
+            'mosque_status' => 'rejected',
+        ]);
+
+        return redirect('admin');
     }
 
     function logout(Request $request)

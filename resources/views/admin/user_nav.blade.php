@@ -21,7 +21,7 @@
 </head>
 <body>
 <!-- Navbar -->
-<nav class="navbar navbar-expand-lg fixed-top bg-light navbar-light">
+<nav class="navbar navbar-expand-lg absolute bg-light navbar-light">
     <div class="container">
       <a class="navbar-brand flex" href="#"
         ><h3>myKhairat</h3></a>

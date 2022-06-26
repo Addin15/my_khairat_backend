@@ -24,9 +24,11 @@ Auth::routes();
 Route::group(['middleware' => ['loggedIn']], function () {
     Route::get('/admin', [AdminController::class, 'dashboard'])->name('admin.dashboard');
     Route::post('/admin/committee/new', [AdminController::class, 'newCommittee'])->name('admin.committee.new.view');
+    Route::post('/admin/committee/accept', [AdminController::class, 'acceptCommittee'])->name('admin.committee.accept');
+    Route::post('/admin/committee/reject', [AdminController::class, 'rejectCommittee'])->name('admin.committee.reject');
     Route::get('/admin/payment', [AdminController::class, 'payment'])->name('admin.payment');
     Route::get('/admin/bank', [AdminController::class, 'bank'])->name('admin.bank');
-    Route::post('/admin/bank', [AdminController::class, 'bankUpdate'])->name('admin.bank.update');
+    Route::post('/admin/bank/update', [AdminController::class, 'bankUpdate'])->name('admin.bank.update');
     Route::get('admin/logout', [AdminController::class, 'logout'])->name('admin.logout');
 });
 

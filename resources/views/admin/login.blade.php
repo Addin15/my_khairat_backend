@@ -32,7 +32,9 @@
                       <h3 class="mb-5">Sign in</h3>
                       
                       @if(isset($error))
-                      <div class="text-bg-primary p-3">{{ $error }}</div>
+                      <div class="alert alert-danger" role="alert">
+                        {{ $error }}
+                      </div>
                       @endif
           
                       <div class="form-outline mb-4">
