@@ -23,10 +23,15 @@ Auth::routes();
 
 Route::group(['middleware' => ['loggedIn']], function () {
     Route::get('/admin', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+    Route::post('/admin/committee', [AdminController::class, 'viewCommittee'])->name('admin.committee.view');
     Route::post('/admin/committee/new', [AdminController::class, 'newCommittee'])->name('admin.committee.new.view');
     Route::post('/admin/committee/accept', [AdminController::class, 'acceptCommittee'])->name('admin.committee.accept');
     Route::post('/admin/committee/reject', [AdminController::class, 'rejectCommittee'])->name('admin.committee.reject');
     Route::get('/admin/payment', [AdminController::class, 'payment'])->name('admin.payment');
+    Route::post('/admin/payment/view', [AdminController::class, 'viewPayment'])->name('admin.payment.view');
+    Route::post('/admin/payment/viewonly', [AdminController::class, 'onlyViewPayment'])->name('admin.payment.only.view');
+    Route::post('/admin/payment/update', [AdminController::class, 'updatePayment'])->name('admin.payment.update');
+    Route::post('/admin/payment/reject', [AdminController::class, 'rejectPayment'])->name('admin.payment.reject');
     Route::get('/admin/bank', [AdminController::class, 'bank'])->name('admin.bank');
     Route::post('/admin/bank/update', [AdminController::class, 'bankUpdate'])->name('admin.bank.update');
     Route::get('admin/logout', [AdminController::class, 'logout'])->name('admin.logout');

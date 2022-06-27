@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Committee;
 use App\Models\CommitteeProfile;
+use App\Models\CommitteePayment;
 use App\Models\Village;
 use App\Models\Person;
 use Illuminate\Http\Request;
@@ -12,6 +13,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use DateTime;
 
 class CommitteeController extends Controller
 {
@@ -97,6 +99,7 @@ class CommitteeController extends Controller
             //Upload File to external server
             Storage::disk('ftp')->put('committee_registration_prove/'.$filenametostore, fopen($request->file('image'), 'r+'));
       
+            $dt = new DateTime("+1 month");
             //Store $filenametostore in the database
             $profile = CommitteeProfile::where('mosque_id', $mosqueID)->update([
                 'mosque_name' => request('mosque_name'),
@@ -109,6 +112,8 @@ class CommitteeController extends Controller
                 'mosque_bank_no' => request('mosque_bank_no'),
                 'mosque_monthly_fee' => request('mosque_monthly_fee'),
                 'mosque_status' => 'pending',
+                'mosque_expire_month' => $dt->format("m"),
+                'mosque_expire_year' => $dt->format("Y"),
                 'mosque_registration_prove' => '/images/committee_registration_prove/'.$filenametostore,
             ]);
 
@@ -120,6 +125,53 @@ class CommitteeController extends Controller
         ], 200);
 
         //return response($profile, 201);
+    }
+
+    public function getPlans(Request $request) {
+        $mosqueID = request('mosque_id');
+
+        $response = CommitteePayment::where('committee_id', $mosqueID)->get();
+
+        return response($response, 200);
+    }
+
+    public function makePayment(Request $request) {
+        $mosqueID = request('mosque_id');
+
+        if($request->hasFile('image')) {
+          
+            //get filename with extension
+            $filenamewithextension = $request->file('image')->getClientOriginalName();
+      
+            //get filename without extension
+            $filename = pathinfo($filenamewithextension, PATHINFO_FILENAME);
+      
+            //get file extension
+            $extension = $request->file('image')->getClientOriginalExtension();
+      
+            //filename to store
+            $filenametostore = $filename.'_'.uniqid().'.'.$extension;
+      
+            //Upload File to external server
+            Storage::disk('ftp')->put('committee_payment_prove/'.$mosqueID.'/'.$filenametostore, fopen($request->file('image'), 'r+'));
+      
+            //Store $filenametostore in the database
+            $payment = CommitteePayment::create([
+                'committee_id' => $mosqueID,
+                'remark' => request('remark'),
+                'is_done' => 0,
+                'is_rejected' => 0,
+                'prove_url' => '/images/committee_payment_prove/'.$mosqueID.'/'.$filenametostore,
+            ]);
+
+
+            return response($payment, 201);
+        }
+
+        return response([
+            'message' => 'Error no image',
+            402,
+        ]);
     }
 
     // -- LOG OUT --
