@@ -39,7 +39,7 @@
                     <div class="my-3"></div>
                     <div class="my-3"></div>
 
-                    <form action="{{ route('admin.committee.accept') }}" method="POST">
+                    <form action="{{ route('admin.committee.edit') }}" method="POST">
                         @csrf
                         <input type="text" value="{{ $committee->mosque_id }}" name="id" hidden>
                         <div class="row">

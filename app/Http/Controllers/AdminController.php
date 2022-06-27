@@ -216,6 +216,34 @@ class AdminController extends Controller
         return redirect('admin');
     }
 
+    public function editCommittee() {
+        $id = request('id');
+
+        $committee = CommitteeProfile::where('mosque_id', $id)->get()->first();
+
+        return view('admin.committee_update', compact('committee'));
+    }
+
+    public function updateCommittee(Request $request) {
+        $request->validate([
+            'id' => 'required',
+            'month' => 'required',
+            'year' => 'required',
+        ]);
+
+        $id = request('id');
+
+        CommitteeProfile::where('mosque_id', $id)->update([
+            'mosque_expire_month' => request('month'),
+            'mosque_expire_year' => request('year'),
+        ]);
+
+        $committee = CommitteeProfile::where('mosque_id', $id)->get()->first();
+        $message = 'Updated successfully';
+
+        return view('admin.committee_update', compact('committee','message'));
+    }
+
 
 
     function logout(Request $request)

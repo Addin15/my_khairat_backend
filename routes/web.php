@@ -27,6 +27,8 @@ Route::group(['middleware' => ['loggedIn']], function () {
     Route::post('/admin/committee/new', [AdminController::class, 'newCommittee'])->name('admin.committee.new.view');
     Route::post('/admin/committee/accept', [AdminController::class, 'acceptCommittee'])->name('admin.committee.accept');
     Route::post('/admin/committee/reject', [AdminController::class, 'rejectCommittee'])->name('admin.committee.reject');
+    Route::post('/admin/committee/edit', [AdminController::class, 'editCommittee'])->name('admin.committee.edit');
+    Route::post('/admin/committee/update', [AdminController::class, 'updateCommittee'])->name('admin.committee.update');
     Route::get('/admin/payment', [AdminController::class, 'payment'])->name('admin.payment');
     Route::post('/admin/payment/view', [AdminController::class, 'viewPayment'])->name('admin.payment.view');
     Route::post('/admin/payment/viewonly', [AdminController::class, 'onlyViewPayment'])->name('admin.payment.only.view');
