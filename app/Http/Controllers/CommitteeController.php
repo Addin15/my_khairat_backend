@@ -274,6 +274,23 @@ class CommitteeController extends Controller
         return response($response, 201);
     }
 
+    public function updateMember(Request $request) {
+        $request->validate([
+            'person_ic' => 'required',
+            'person_member_no' => 'required',
+            'person_expire_month' => 'required',
+            'person_expire_year' => 'required',
+        ]);
+
+        $ic = request('person_ic');
+
+        $response = Person::where('person_ic', $ic)->update([
+            'person_member_no' => request('person_member_no'),
+            'person_expire_month'=> request('person_expire_month'),
+            'person_expire_year' => request('person_expire_year'),
+        ]);
+    }
+
     function acceptMember(Request $request)
     {
         $mosqueID = request('mosque_id');
@@ -296,6 +313,14 @@ class CommitteeController extends Controller
         $response = Person::where('mosque_id', $mosqueID)->where('id', $memberID)->update([
             'person_status' => 'rejected',
         ]);
+
+        return response($response, 200);
+    }
+
+    public function getDependents(Request $request) {
+        $mosqueID = request('mosque_id');
+
+        $response = Dependent::where('mosque_id')->get();
 
         return response($response, 200);
     }

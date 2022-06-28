@@ -78,6 +78,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     //members
     Route::post('/committee/members/get', [CommitteeController::class, 'getMembers']);
     Route::post('/committee/members/add', [CommitteeController::class, 'addMembers']);
+    Route::put('/committee/members/update', [CommitteeController::class, 'updateMember']);
     Route::post('/committee/members/accept', [CommitteeController::class, 'acceptMember']);
     Route::post('/committee/members/reject', [CommitteeController::class, 'rejectMember']);
     // dependent
