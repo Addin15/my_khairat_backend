@@ -100,6 +100,8 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     // plan
     Route::post('/committee/plan/', [CommitteeController::class, 'getPlans']);
     Route::post('/committee/plan/subscribe', [CommitteeController::class, 'makePayment']);
+    // bank details
+    Route::put('/committee/bank/edit', [CommitteeController::class, 'editBankDetails']);
 
     // ----- ADMIN -----
     Route::post('/admin/logout', [AdminController::class, 'logout']);

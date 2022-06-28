@@ -75,6 +75,8 @@
         </div>
     </form>
     <form action="{{ route('admin.payment.reject') }}" method="POST">
+        @csrf
+        <input type="text" hidden value="{{ $payment->id }}" name="paymentID">
         <div class="row">
             <div class="my-1"></div>
             <button type="submit" class="btn btn-danger">Reject</button>

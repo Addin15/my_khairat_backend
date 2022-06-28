@@ -174,6 +174,25 @@ class CommitteeController extends Controller
         ]);
     }
 
+    public function editBankDetails(Request $request) {
+        $request->validate([
+            'mosque_id' => 'required',
+            'bank_name' => 'required',
+            'bank_owner_name' => 'required',
+            'bank_account_no' => 'required',
+            'monthly_fee' => 'required',
+        ]);
+
+        $response = CommitteeProfile::where('mosque_id', request('mosque_id'))->update([
+            'mosque_bank_name' => request('bank_name'),
+            'mosque_bank_owner_name' => request('bank_owner_name'),
+            'mosque_bank_no' => request('bank_account_no'),
+            'mosque_monthly_fee' => request('monthly_fee'),
+        ]);
+
+        return response($response, 200);
+    }
+
     // -- LOG OUT --
     function logout(Request $request)
     {
