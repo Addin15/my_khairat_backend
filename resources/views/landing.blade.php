@@ -71,14 +71,15 @@
                 <div class="col-md-6" style="padding-top: 80px;padding-right: 150px;">
                     <h1>SELAMAT DATANG KE</h1>
                     <h1 style="color: RGB(78,214,155);">MYKHAIRAT</h1>
-                    <p style="margin-top: 15px;">Lorem ipsum dolor sit amet. 33 magni temporibus nam perspiciatis
-                        aperiam non sunt officia eos Quis obcaecati. Qui aperiam aperiam quo architecto adipisci aut
-                        odit sunt a repudiandae doloribus aut ipsa rerum aut distinctio accusantium quo quas
-                        exercitationem. Quo nulla quia 33 enim quaerat ut velit voluptatum eos placeat fuga eos laborum
-                        distinctio! Et illo quasi aut tempora consectetur aut accusamus sapiente hic placeat sunt.Est
-                        mollitia corporis qui maiores perspiciatis ut saepe voluptatem. Eum corrupti voluptatem aut
-                        nihil provident est ullam corporis non cumque voluptatem!Ab voluptas dolor aut provident quas
-                        aut rerum necessitatibus!&nbsp;<br><br></p>
+                    <p style="margin-top: 15px;">Aplikasi MyKhairat adalah aplikasi khusus untuk pengurusan kutipan khairat 
+                    kematian Islam bagi memudahkan pengurusan Masjid yang kini merekodkannya secara manual, selain untuk 
+                    jawatankuasa masjid mengendalikan dan mengagihkan khairat kematian. Khairat pada asasnya adalah satu 
+                    bentuk derma atau kebajikan yang mengumpul wang pada kadar tertentu dan akan diberikan kepada mana-mana 
+                    tanggungan ahli yang layak sekiranya ahli meninggal dunia. Ahli juga boleh menuntut khairat kematian untuk 
+                    tanggungan mereka yang berdaftar. Perkhidmatan pengebumian akan diuruskan oleh jawatankuasa masjid dan mana-mana 
+                    ahli khairat yang aktif tidak akan dikenakan bayaran untuk perbelanjaan pengebumian.
+
+&nbsp;<br><br></p>
                     <div class="d-xxl-flex justify-content-xxl-center">
                         <div class="col d-xxl-flex flex-column justify-content-xxl-center align-items-xxl-center">
                             <button class="btn btn-primary bg-success bg-gradient d-xxl-flex" type="button"

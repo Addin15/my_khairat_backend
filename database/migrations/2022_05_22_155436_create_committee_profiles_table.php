@@ -27,6 +27,8 @@ return new class extends Migration
             $table->string('mosque_bank_no')->nullable();
             $table->double('mosque_monthly_fee')->nullable();
             $table->string('mosque_status')->nullable();
+            $table->integer('mosque_expire_month')->nullable();
+            $table->integer('mosque_expire_year')->nullable();
             $table->timestamps();
         });
     }

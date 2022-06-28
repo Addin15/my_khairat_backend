@@ -7,9 +7,11 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\DB;
 
 use App\Models\PaymentDetail;
 use App\Models\CommitteeProfile;
+use App\Models\CommitteePayment;
 
 class AdminController extends Controller
 {
@@ -51,10 +53,92 @@ class AdminController extends Controller
         }
     }
 
+    public function viewCommittee(Request $request) {
+        $id = request('committeeID');
+
+        $committee = CommitteeProfile::where('mosque_id', $id)->get()->first();
+
+        return view('admin.view_committee', compact('committee'));
+    }
+
     public function payment() {
+
+        $payments = DB::table('committee_payments')
+        ->join('committee_profiles', 'committee_payments.committee_id', '=', 'committee_profiles.mosque_id')
+        ->select('committee_profiles.*', 'committee_payments.*')->get();
         
-        return view('admin.member_payment');
+        return view('admin.member_payment', compact('payments'));
         
+    }
+
+    public function viewPayment(Request $request) {
+        $id = request('paymentID');
+
+        $payment = DB::table('committee_payments')
+        ->where('committee_payments.id', $id)
+        ->join('committee_profiles', 'committee_payments.committee_id', '=', 'committee_profiles.mosque_id')
+        ->select('committee_profiles.*', 'committee_payments.*')
+        ->get()->first();
+
+        return view('admin.view_payment', compact('payment'));
+    }
+
+    public function onlyViewPayment(Request $request) {
+        $id = request('paymentID');
+
+        $payment = DB::table('committee_payments')
+        ->where('committee_payments.id', $id)
+        ->join('committee_profiles', 'committee_payments.committee_id', '=', 'committee_profiles.mosque_id')
+        ->select('committee_profiles.*', 'committee_payments.*')
+        ->get()->first();
+
+        return view('admin.view_only_payment', compact('payment'));
+    }
+
+    public function updatePayment(Request $request) {
+
+        $request->validate([
+            'paymentID' => 'required',
+            'committeeID' => 'required',
+            'month' => 'required',
+            'year' => 'required',
+        ]);
+
+        $id = request('paymentID');
+        $committeeID = request('committeeID');
+        $month = request('month');
+        $year = request('year');
+
+        CommitteeProfile::where('mosque_id',$committeeID)->update([
+            'mosque_expire_month' => request('month'),
+            'mosque_expire_year' => request('year'),
+        ]);
+
+        $response = CommitteePayment::where('id', $id)->update([
+            'is_done' => 1,
+        ]);
+
+        return redirect('admin/payment');
+
+    }
+
+    public function rejectPayment(Request $request) {
+
+        $request->validate([
+            'paymentID' => 'required',
+        ]);
+
+        $id = request('paymentID');
+        $month = request('month');
+        $year = request('year');
+
+        $response = CommitteePayment::where('id', $id)->update([
+            'is_done' => 1,
+            'is_rejected' => 1,
+        ]);
+
+        return redirect('admin/payment');
+
     }
 
     public function bank() {
@@ -131,6 +215,36 @@ class AdminController extends Controller
 
         return redirect('admin');
     }
+
+    public function editCommittee() {
+        $id = request('id');
+
+        $committee = CommitteeProfile::where('mosque_id', $id)->get()->first();
+
+        return view('admin.committee_update', compact('committee'));
+    }
+
+    public function updateCommittee(Request $request) {
+        $request->validate([
+            'id' => 'required',
+            'month' => 'required',
+            'year' => 'required',
+        ]);
+
+        $id = request('id');
+
+        CommitteeProfile::where('mosque_id', $id)->update([
+            'mosque_expire_month' => request('month'),
+            'mosque_expire_year' => request('year'),
+        ]);
+
+        $committee = CommitteeProfile::where('mosque_id', $id)->get()->first();
+        $message = 'Updated successfully';
+
+        return view('admin.committee_update', compact('committee','message'));
+    }
+
+
 
     function logout(Request $request)
     {

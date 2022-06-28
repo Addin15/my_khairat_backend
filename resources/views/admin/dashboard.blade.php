@@ -32,7 +32,15 @@
                     @continue
                 @endif
         
-                <p>{{ $committee->mosque_name }}</p>
+                <form action="{{ route('admin.committee.view') }}" method="POST">
+                    <div class="row">
+                        <p class="col-10">{{ $committee->mosque_name }}</p>
+                        <input type="text" name="committeeID" value="{{ $committee->mosque_id }}" hidden/>
+                        @csrf
+                        <button type="submit" class="btn btn-secondary col-2" >View</button>
+                        
+                    </div>
+                </form>
             @endforeach
         </div>
     </div>
