@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Claim;
+use Illuminate\Support\Facades\Storage;
 
 class ClaimController extends Controller
 {
@@ -20,8 +21,25 @@ class ClaimController extends Controller
     function addClaim(Request $request) {
         $claim = request('claim_id');
         $mosque = request('mosque_id');
+
+        if($request->hasFile('image')) {
+          
+            //get filename with extension
+            $filenamewithextension = $request->file('image')->getClientOriginalName();
+      
+            //get filename without extension
+            $filename = pathinfo($filenamewithextension, PATHINFO_FILENAME);
+      
+            //get file extension
+            $extension = $request->file('image')->getClientOriginalExtension();
+      
+            //filename to store
+            $filenametostore = $filename.'_'.uniqid().'.'.$extension;
+      
+            //Upload File to external server
+            Storage::disk('ftp')->put('user_claim/'.$claim.'/'.$filenametostore, fopen($request->file('image'), 'r+'));
         
-        $response = Claim::create([
+        $rclaim = Claim::create([
             'claim_id' => $claim,
             'mosque_id'=> $mosque,
             'claimer_name' => request('claimer_name'),
@@ -33,10 +51,16 @@ class ClaimController extends Controller
             'dead_reason' => request('dead_reason'),
             'claimer_url' => request('claimer_url'),
             'status' => request('status'),
+            'claimer_url' => '/images/user_claim/'.$claim.'/'.$filenametostore,
         ]);
 
-        return response($response, 201);
+        return response($rclaim, 201);
     }
+    return response([
+        'message' => 'Error no image',
+        402,
+    ]);
+}
 
     //edit
     function action(Request $request) {
