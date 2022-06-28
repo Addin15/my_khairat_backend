@@ -13,6 +13,11 @@ class Claim extends Model
         'mosque_id',
         'claimer_name',
         'claimer_ic',
+        'claimer_address',
+        'claimer_relation',
+        'dead_name',
+        'dead_date',
+        'dead_reason',
         'claimer_url',
         'status',
     ];
