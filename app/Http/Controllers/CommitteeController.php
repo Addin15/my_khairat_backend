@@ -214,9 +214,27 @@ class CommitteeController extends Controller
         return response($response, 200);
     }
 
+    function getMosque(Request $request)
+    {
+        $mosqueID = request('mosqueID');
+
+        $response = CommitteeProfile::where('mosque_id', $mosqueID)->get()->first();
+
+        return response($response, 200);
+    }
+
     function getVillages(Request $request)
     {
         $response = Village::where('mosque_id', request('mosque_id'))->get();
+
+        return response($response, 200);
+    }
+
+    function getVillage(Request $request)
+    {
+        $villageID = request('villageID');
+
+        $response = Village::where('id', $villageID)->get()->first();
 
         return response($response, 200);
     }

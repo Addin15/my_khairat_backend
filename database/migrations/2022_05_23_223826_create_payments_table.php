@@ -17,14 +17,6 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('payer_id');
             $table->foreign('payer_id')->references('id')->on('users');
-            $table->unsignedBigInteger('mosque_id');
-            $table->foreign('mosque_id')->references('id')->on('committees');
-            $table->string('payment_date');
-            $table->integer('start_month');
-            $table->integer('start_year');
-            $table->integer('end_month');
-            $table->integer('end_year');
-            $table->double('amount');
             $table->string('prove_url');
             $table->string('status');
             $table->timestamps();

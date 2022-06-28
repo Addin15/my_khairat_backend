@@ -40,6 +40,8 @@ Route::post('/admin/login', [AdminController::class, 'login']);
 Route::post('/admin/register', [AdminController::class, 'register']);
 
 Route::get('/mosque/all', [CommitteeController::class, 'getMosques']);
+Route::get('/mosque/{mosqueID}', [CommitteeController::class, 'getMosque']);
+Route::get('/village/{villageID}', [CommitteeController::class, 'getVillage']);
 Route::get('/mosque/{mosque_id}/village/all', [CommitteeController::class, 'getVillages']);
 
 
@@ -61,6 +63,8 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('/dependents/deaths/add', [DeathController::class, 'addDeath']);
     //claim
     Route::post('/claims/add', [ClaimController::class, 'addClaim']);
+    // payment
+    Route::post('/payment/add', [PaymentController::class, 'add']);
 
     // ----- COMMITTEE USER -----
     //claims
@@ -104,6 +108,4 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     // bank details
     Route::put('/committee/bank/edit', [CommitteeController::class, 'editBankDetails']);
 
-    // ----- ADMIN -----
-    Route::post('/admin/logout', [AdminController::class, 'logout']);
 });

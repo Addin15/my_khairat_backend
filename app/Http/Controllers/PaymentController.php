@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Payment;
 
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
+use DateTime;
+
 class PaymentController extends Controller
 {
     //get
@@ -18,23 +22,41 @@ class PaymentController extends Controller
 
     //add
     function add(Request $request) {
-        $mosque = request('mosque_id');
         $payer = request('payer_id');
 
-        $response = Payment::create([
-            'mosque_id' => $mosque,
-            'payer_id' => $payer,
-            'payment_date' => request('payment_date'),
-            'start_month' => request('start_month'),
-            'start_year' => request('start_year'),
-            'end_month' => request('end_month'),
-            'end_year' => request('end_year'),
-            'amount' => request('amount'),
-            'prove_url' => request('prove_url'),
-            'status' => request('status'),
-        ]);
+        if($request->hasFile('image')) {
+          
+            //get filename with extension
+            $filenamewithextension = $request->file('image')->getClientOriginalName();
+      
+            //get filename without extension
+            $filename = pathinfo($filenamewithextension, PATHINFO_FILENAME);
+      
+            //get file extension
+            $extension = $request->file('image')->getClientOriginalExtension();
+      
+            //filename to store
+            $filenametostore = $filename.'_'.uniqid().'.'.$extension;
+      
+            //Upload File to external server
+            Storage::disk('ftp')->put('user_payment_prove/'.$payer.'/'.$filenametostore, fopen($request->file('image'), 'r+'));
+      
+            //Store $filenametostore in the database
+            $payment = Payment::create([
+                'payer_id' => $payer,
+                'prove_url' => request('prove_url'),
+                'status' => 'pending',
+                'prove_url' => '/images/user_payment_prove/'.$payer.'/'.$filenametostore,
+            ]);
 
-        return response($response, 201);
+
+            return response($payment, 201);
+        }
+
+        return response([
+            'message' => 'Error no image',
+            402,
+        ]);
     }
 
     //edit
