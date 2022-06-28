@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -112,25 +113,51 @@ class UserController extends Controller
             'person_phone' => 'required|string',
             'person_address' => 'required|string',
             'person_occupation' => 'required|string',
-            'person_details_prove' => 'required|string',
-            'person_payment_prove' => 'required|string',
             'person_status' => 'required|string',
         ]);
 
-        $person = Person::where('user_id', request('user_id'))->update([
-            'mosque_id' => request('mosque_id'),
-            'village_id' => request('village_id'),
-            'person_name' => request('person_name'),
-            'person_ic' => request('person_ic'),
-            'person_phone' => request('person_phone'),
-            'person_address' => request('person_address'),
-            'person_occupation' => request('person_occupation'),
-            'person_details_prove' => request('person_details_prove'),
-            'person_payment_prove' => request('person_payment_prove'),
-            'person_status' => 'pending',
-        ]);
+        if($request->hasFile('paymentProve') && $request->hasFile('addressProve')) {
 
-        return response($person, 201);
+            $userID = request('user_id');
+          
+            // payment
+            $filenamewithextension1 = $request->file('paymentProve')->getClientOriginalName();
+            $filename1 = pathinfo($filenamewithextension1, PATHINFO_FILENAME);
+            $extension1 = $request->file('paymentProve')->getClientOriginalExtension();
+            $filenametostore1 = $filename1.'_'.uniqid().'.'.$extension1;
+            Storage::disk('ftp')->put('member_registration_payment/'.$userID.'/'.$filenametostore1, fopen($request->file('paymentProve'), 'r+'));
+
+            // address
+            $filenamewithextension2 = $request->file('addressProve')->getClientOriginalName();
+            $filename2 = pathinfo($filenamewithextension2, PATHINFO_FILENAME);
+            $extension2 = $request->file('addressProve')->getClientOriginalExtension();
+            $filenametostore2 = $filename2.'_'.uniqid().'.'.$extension2;
+            Storage::disk('ftp')->put('member_registration_address/'.$userID.'/'.$filenametostore2, fopen($request->file('addressProve'), 'r+'));
+      
+            $response = Person::where('user_id', $userID)->update([
+                'mosque_id' => request('mosque_id'),
+                'village_id' => request('village_id'),
+                'person_name' => request('person_name'),
+                'person_ic' => request('person_ic'),
+                'person_phone' => request('person_phone'),
+                'person_address' => request('person_address'),
+                'person_occupation' => request('person_occupation'),
+                'person_details_prove' => request('person_details_prove'),
+                'person_payment_prove' => request('person_payment_prove'),
+                'person_register_date' => request('person_register_date'),
+                'person_status' => 'pending',
+                'person_payment_prove' => '/images/member_registration_payment/'.$userID.'/'.$filenametostore1,
+                'person_details_prove' => '/images/member_registration_address/'.$userID.'/'.$filenametostore2,
+            ]);
+
+            return response($response, 201);
+
+        } 
+
+        return response([
+            'message' => 'Error no image',
+            402,
+        ]);
     }
 
 

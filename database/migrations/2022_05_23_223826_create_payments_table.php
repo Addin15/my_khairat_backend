@@ -17,6 +17,8 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('payer_id');
             $table->foreign('payer_id')->references('id')->on('users');
+            $table->unsignedBigInteger('mosque_id');
+            $table->foreign('mosque_id')->references('id')->on('committees');
             $table->string('prove_url');
             $table->string('status');
             $table->timestamps();
