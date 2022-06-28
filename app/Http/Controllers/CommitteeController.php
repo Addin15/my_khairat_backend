@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Committee;
 use App\Models\CommitteeProfile;
 use App\Models\CommitteePayment;
+use App\Models\Dependent;
 use App\Models\Village;
 use App\Models\Person;
 use App\Models\Grave;

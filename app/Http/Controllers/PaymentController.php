@@ -23,6 +23,14 @@ class PaymentController extends Controller
         return response($response, 200);
     }
 
+    public function get(Request $request) {
+        $userID = request('payer_id');
+
+        $response = Payment::where('payer_id', $userID)->get();
+
+        return response($response, 200);
+    }
+
     //add
     function add(Request $request) {
         $payer = request('payer_id');

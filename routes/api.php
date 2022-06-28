@@ -65,6 +65,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('/claims/add', [ClaimController::class, 'addClaim']);
     // payment
     Route::post('/payment/add', [PaymentController::class, 'add']);
+    Route::post('/payment/get', [PaymentController::class, 'get']);
 
     // ----- COMMITTEE USER -----
     //claims
@@ -81,7 +82,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('/committee/members/reject', [CommitteeController::class, 'rejectMember']);
     // dependent
     Route::post('/committee/dependent/get', [CommitteeController::class, 'getDependents']);
-    Route::post('/committee/dependent/add', [CommitteeController::class, 'addDependent']);
+    Route::post('/committee/dependent/add', [DependentController::class, 'addDependent']);
     //villages
     Route::post('/committee/villages/get', [VillageController::class, 'get']);
     Route::post('/committee/villages/add', [VillageController::class, 'add']);
