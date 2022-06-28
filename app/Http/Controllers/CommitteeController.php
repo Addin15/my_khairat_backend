@@ -280,6 +280,8 @@ class CommitteeController extends Controller
 
         $response = Person::where('mosque_id', $mosqueID)->where('id', $memberID)->update([
             'person_status' => 'completed',
+            'person_expire_month' => request('person_expire_month'),
+            'person_expire_year' => request('person_expire_year'),
         ]);
 
         return response($response, 200);
