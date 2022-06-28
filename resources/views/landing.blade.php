@@ -71,7 +71,7 @@
                 <div class="col-md-6" style="padding-top: 80px;padding-right: 150px;">
                     <h1>SELAMAT DATANG KE</h1>
                     <h1 style="color: RGB(78,214,155);">MYKHAIRAT</h1>
-                    <p style="margin-top: 15px;">MAplikasi MyKhairat adalah aplikasi khusus untuk pengurusan kutipan khairat 
+                    <p style="margin-top: 15px;">Aplikasi MyKhairat adalah aplikasi khusus untuk pengurusan kutipan khairat 
                     kematian Islam bagi memudahkan pengurusan Masjid yang kini merekodkannya secara manual, selain untuk 
                     jawatankuasa masjid mengendalikan dan mengagihkan khairat kematian. Khairat pada asasnya adalah satu 
                     bentuk derma atau kebajikan yang mengumpul wang pada kadar tertentu dan akan diberikan kepada mana-mana 
