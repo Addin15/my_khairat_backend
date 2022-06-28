@@ -65,6 +65,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     // ----- COMMITTEE USER -----
     //claims
     Route::post('/committee/claims/get', [ClaimController::class, 'getClaim']);
+    Route::put('/committee/claims/action', [ClaimController::class, 'action']);
     //payments
     Route::post('/committee/payments/get', [PaymentController::class, 'get']);
     Route::put('/committee/payments/action', [PaymentController::class, 'action']);

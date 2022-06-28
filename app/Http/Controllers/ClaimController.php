@@ -32,4 +32,15 @@ class ClaimController extends Controller
 
         return response($response, 201);
     }
+
+    //edit
+    function action(Request $request) {
+        $id = request('id');
+
+        $response = Claim::where('id', $id)->update([
+            'status' => request('status'),
+        ]);
+
+        return response($response, 200);
+    }
 }

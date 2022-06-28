@@ -20,7 +20,12 @@ return new class extends Migration
             $table->unsignedBigInteger('mosque_id');
             $table->foreign('mosque_id')->references('id')->on('committees');
             $table->String('claimer_name');
+            $table->String('claimer_address');
             $table->String('claimer_ic');
+            $table->String('claimer_relation');
+            $table->string('dead_date');
+            $table->String('dead_name');
+            $table->String('dead_reason');
             $table->String('claimer_url');
             $table->String('status');
             $table->timestamps();

@@ -6,6 +6,7 @@ use App\Models\Committee;
 use App\Models\CommitteeProfile;
 use App\Models\Village;
 use App\Models\Person;
+use App\Models\Grave;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
