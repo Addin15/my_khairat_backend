@@ -23,6 +23,7 @@ class DependentController extends Controller
     
             $response = Dependent::create([
                 'user_id' => $user,
+                'mosque_id' => request('mosque_id'),
                 'dependent_name' => request('dependent_name'),
                 'dependent_relation' => request('dependent_relation'),
                 'dependent_ic' => request('dependent_ic'),
@@ -32,6 +33,7 @@ class DependentController extends Controller
                 'death_status' => request('death_status'),
                 'death_date' => request('death_date'),
                 'verify' => request('verify'),
+                'verify_death' => request('verify_death'),
             ]);
     
             return response($response, 201);
@@ -42,6 +44,7 @@ class DependentController extends Controller
             $id = request('id');
     
             $response = Dependent::where('id', $id)->update([
+                'mosque_id' => request('mosque_id'),
                 'dependent_name' => request('dependent_name'),
                 'dependent_relation' => request('dependent_relation'),
                 'dependent_ic' => request('dependent_ic'),
@@ -51,6 +54,7 @@ class DependentController extends Controller
                 'death_status' => request('death_status'),
                 'death_date' => request('death_date'),
                 'verify' => request('verify'),
+                'verify_death' => request('verify_death'),
             ]);
     
             return response($response, 200);

@@ -10,6 +10,7 @@ class Dependent extends Model
     use HasFactory;
     protected $fillable = [
         'user_id',
+        'mosque_id',
         'dependent_name',
         'dependent_relation',
         'dependent_ic',
@@ -19,5 +20,6 @@ class Dependent extends Model
         'death_status',
         'death_date',
         'verify',
+        'verify_death',
     ];
 }
