@@ -12,17 +12,21 @@ use DateTime;
 class PaymentController extends Controller
 {
     //get
-    function get(Request $request) {
+    function getFromAdmin(Request $request) {
         $mosque = request('mosque_id');
 
-        $response = Payment::where('mosque_id', $mosque)->get();
-
+        $response = DB::table('payments')
+        ->where('payments.mosque_id', $mosque)
+        ->join('people', 'payments.payer_id', '=', 'people.user_id')
+        ->select('payments.*', 'people.*')->get();
+        
         return response($response, 200);
     }
 
     //add
     function add(Request $request) {
         $payer = request('payer_id');
+        $mosque = request('mosque_id');
 
         if($request->hasFile('image')) {
           
@@ -44,6 +48,7 @@ class PaymentController extends Controller
             //Store $filenametostore in the database
             $payment = Payment::create([
                 'payer_id' => $payer,
+                'mosque_id' => $mosque,
                 'prove_url' => request('prove_url'),
                 'status' => 'pending',
                 'prove_url' => '/images/user_payment_prove/'.$payer.'/'.$filenametostore,

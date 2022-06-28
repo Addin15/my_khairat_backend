@@ -51,7 +51,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
     // ----- NORMAL USER -----
     Route::post('/user', [UserController::class, 'getUser']);
-    Route::put('/complete', [UserController::class, 'complete']);
+    Route::post('/complete', [UserController::class, 'complete']);
     Route::post('/logout', [UserController::class, 'logout']);
     //dependent
     Route::post('/dependents/get', [DependentController::class, 'getDependents']);
@@ -71,7 +71,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('/committee/claims/get', [ClaimController::class, 'getClaim']);
     Route::put('/committee/claims/action', [ClaimController::class, 'action']);
     //payments
-    Route::post('/committee/payments/get', [PaymentController::class, 'get']);
+    Route::post('/committee/payments/get', [PaymentController::class, 'getFromAdmin']);
     Route::put('/committee/payments/action', [PaymentController::class, 'action']);
     Route::post('/committee/payments/delete', [PaymentController::class, 'delete']);
     //members
@@ -79,6 +79,9 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('/committee/members/add', [CommitteeController::class, 'addMembers']);
     Route::post('/committee/members/accept', [CommitteeController::class, 'acceptMember']);
     Route::post('/committee/members/reject', [CommitteeController::class, 'rejectMember']);
+    // dependent
+    Route::post('/committee/dependent/get', [CommitteeController::class, 'getDependents']);
+    Route::post('/committee/dependent/add', [CommitteeController::class, 'addDependent']);
     //villages
     Route::post('/committee/villages/get', [VillageController::class, 'get']);
     Route::post('/committee/villages/add', [VillageController::class, 'add']);
