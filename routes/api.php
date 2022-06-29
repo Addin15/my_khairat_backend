@@ -33,6 +33,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('/login', [UserController::class, 'login']);
 Route::post('/register', [UserController::class, 'register']);
 // ----- COMMITTEE -----
+Route::get('/bankdetails', [CommitteeController::class, 'bank']);
 Route::post('/committee/login', [CommitteeController::class, 'login']);
 Route::post('/committee/register', [CommitteeController::class, 'register']);
 Route::post('/committee/announcements/get', [AnnouncementController::class, 'getAnnouncements']);
@@ -67,6 +68,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('/payment/get', [PaymentController::class, 'get']);
 
     // ----- COMMITTEE USER -----
+    Route::post('/committee/get', [CommitteeController::class, 'get']);
     //claims
     Route::post('/committee/claims/get', [ClaimController::class, 'getClaim']);
     Route::put('/committee/claims/action', [ClaimController::class, 'action']);

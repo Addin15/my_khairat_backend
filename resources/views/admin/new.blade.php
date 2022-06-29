@@ -48,11 +48,11 @@
                     </form>
                     
                     <div class="my-1"></div>
-                    <form action="{{ route('admin.committee.reject', [$committee]) }}" method="POST">
+                    <form action="{{ route('admin.committee.reject') }}" method="POST">
                         @csrf
                         <input type="text" value="{{ $committee->mosque_id }}" name="id" hidden>
                     <div class="row">
-                        <button type="button" class="btn btn-danger">Reject</button>
+                        <button type="submit" class="btn btn-danger">Reject</button>
                     </div>
                     </form>
                     <div class="my-3"></div>

@@ -134,6 +134,7 @@ class UserController extends Controller
             $filenametostore2 = $filename2.'_'.uniqid().'.'.$extension2;
             Storage::disk('ftp')->put('member_registration_address/'.$userID.'/'.$filenametostore2, fopen($request->file('addressProve'), 'r+'));
       
+
             $response = Person::where('user_id', $userID)->update([
                 'mosque_id' => request('mosque_id'),
                 'village_id' => request('village_id'),

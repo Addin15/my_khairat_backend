@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row m-auto">
         <h4>Pending Payment</h4>
-        <div class="col-12 m-auto border border-3">
+        <div class="col-12 m-auto border border-3 p-3">
             @foreach($payments as $payment)
             @if($payment->is_done == 0) 
             <div class="row my-2">
@@ -23,7 +23,7 @@
         </div>
         <div class="my-3"></div>
         <h4>Completed Payment</h4>
-        <div class="col-12 m-auto border border-3">
+        <div class="col-12 m-auto border border-3 p-3">
             @foreach($payments as $payment)
             @if($payment->is_done == 1) 
             <div class="row my-2">

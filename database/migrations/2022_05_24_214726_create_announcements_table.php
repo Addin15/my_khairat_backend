@@ -18,7 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('mosque_id');
             $table->foreign('mosque_id')->references('id')->on('committees');
             $table->string('announcement_title');
-            $table->string('announcement_content')->nullable();
+            $table->longText('announcement_content')->nullable();
             $table->string('announcement_img_url')->nullable();
             $table->string('announcement_date');
             $table->timestamps();

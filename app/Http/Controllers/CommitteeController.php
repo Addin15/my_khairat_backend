@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Committee;
 use App\Models\CommitteeProfile;
 use App\Models\CommitteePayment;
+use App\Models\PaymentDetail;
 use App\Models\Dependent;
 use App\Models\Village;
 use App\Models\Person;
@@ -296,8 +297,15 @@ class CommitteeController extends Controller
         $mosqueID = request('mosque_id');
         $memberID = request('id');
 
+        $max = Person::where('mosque_id', request('mosque_id'))->max('person_member_no');
+
+        if(!$max) {
+            $max = 0;
+        }
+
         $response = Person::where('mosque_id', $mosqueID)->where('id', $memberID)->update([
             'person_status' => 'completed',
+            'person_member_no' => $max + 1,
             'person_expire_month' => request('person_expire_month'),
             'person_expire_year' => request('person_expire_year'),
         ]);
@@ -348,6 +356,28 @@ class CommitteeController extends Controller
         ]);
 
         return response($response, 200);
+    }
+
+    public function get(Request $request) {
+
+        $id = request('id');
+
+        $user = Committee::where('id', $id)->first();
+
+        $profile = CommitteeProfile::where('mosque_id', $user->id)->first();
+
+        $response = [
+            'user' => $user,
+            'profile' => $profile,
+        ];
+
+        return response($response, 200);
+    }
+
+    public function bank() {
+        $bank = PaymentDetail::all()->first();
+
+        return response($bank, 200);
     }
 
     

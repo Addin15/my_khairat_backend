@@ -22,5 +22,8 @@ class Person extends Model
         'person_payment_prove',
         'person_register_date',
         'person_status',
+        'person_member_no',
+        'person_expire_month',
+        'person_expire_year',
     ];
 }

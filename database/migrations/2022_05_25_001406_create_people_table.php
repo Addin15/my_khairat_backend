@@ -33,8 +33,6 @@ return new class extends Migration
             $table->integer('person_expire_month')->nullable();
             $table->integer('person_expire_year')->nullable();
             $table->integer('person_member_no')->nullable();
-            $table->unsignedBigInteger('person_borner')->nullable();
-            $table->foreign('person_borner')->references('user_id')->on('people');
             $table->timestamps();
         });
     }
