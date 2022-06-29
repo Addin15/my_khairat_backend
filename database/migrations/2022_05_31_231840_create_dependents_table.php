@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id')->nullable();
             $table->unsignedBigInteger('mosque_id')->nullable();
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('people');
             $table->foreign('mosque_id')->references('mosque_id')->on('people');
             $table->string('dependent_name')->nullable();
             $table->string('dependent_relation')->nullable();
