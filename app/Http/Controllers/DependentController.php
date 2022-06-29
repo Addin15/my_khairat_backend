@@ -17,6 +17,7 @@ class DependentController extends Controller
             return response($response, 200);
         }
 
+
         //add
         function addDependent(Request $request) {
             $user = request('user_id');
@@ -33,6 +34,7 @@ class DependentController extends Controller
                 'death_status' => request('death_status'),
                 'death_date' => request('death_date'),
                 'verify' => request('verify'),
+                'is_rejected' => 0,
                 'verify_death' => request('verify_death'),
             ]);
     
@@ -53,7 +55,6 @@ class DependentController extends Controller
                 'dependent_address' => request('dependent_address'),
                 'death_status' => request('death_status'),
                 'death_date' => request('death_date'),
-                'verify' => request('verify'),
                 'verify_death' => request('verify_death'),
             ]);
     

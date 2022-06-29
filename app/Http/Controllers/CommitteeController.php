@@ -320,8 +320,35 @@ class CommitteeController extends Controller
     public function getDependents(Request $request) {
         $mosqueID = request('mosque_id');
 
-        $response = Dependent::where('mosque_id')->get();
+        $response = DB::table('dependents')
+        ->where('dependents.mosque_id', $mosqueID)
+        ->join('people', 'dependents.user_id', '=', 'people.user_id')
+        ->select('people.*', 'dependents.*')
+        ->get();
 
         return response($response, 200);
     }
+
+    public function acceptDependent(Request $request) {
+        $id = request('id');
+
+        $response = Dependent::where('id', $id)->update([
+            'verify' => 1,
+        ]);
+
+        return response($response, 200);
+    }
+
+    public function rejectDependent(Request $request) {
+        $id = request('id');
+
+        $response = Dependent::where('id', $id)->update([
+            'verify' => 0,
+            'is_rejected' => 1,
+        ]);
+
+        return response($response, 200);
+    }
+
+    
 }

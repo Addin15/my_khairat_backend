@@ -28,6 +28,7 @@ return new class extends Migration
             $table->string('death_status')->nullable();
             $table->string('death_date')->nullable();
             $table->boolean('verify')->nullable();
+            $table->boolean('is_rejected')->nullable();
             $table->boolean('verify_death')->nullable();
             $table->timestamps();
         });

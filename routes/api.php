@@ -35,6 +35,7 @@ Route::post('/register', [UserController::class, 'register']);
 // ----- COMMITTEE -----
 Route::post('/committee/login', [CommitteeController::class, 'login']);
 Route::post('/committee/register', [CommitteeController::class, 'register']);
+Route::post('/committee/announcements/get', [AnnouncementController::class, 'getAnnouncements']);
 // ----- ADMIN ----
 Route::post('/admin/login', [AdminController::class, 'login']);
 Route::post('/admin/register', [AdminController::class, 'register']);
@@ -82,13 +83,14 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     // dependent
     Route::post('/committee/dependent/get', [CommitteeController::class, 'getDependents']);
     Route::post('/committee/dependent/add', [DependentController::class, 'addDependent']);
+    Route::post('/committee/dependent/accept', [CommitteeController::class, 'acceptDependent']);
+    Route::post('/committee/dependent/reject', [CommitteeController::class, 'rejectDependent']);
     //villages
     Route::post('/committee/villages/get', [VillageController::class, 'get']);
     Route::post('/committee/villages/add', [VillageController::class, 'add']);
     Route::put('/committee/villages/edit', [VillageController::class, 'edit']);
     Route::post('/committee/villages/delete', [VillageController::class, 'delete']);
     //announcements
-    Route::post('/committee/announcements/get', [AnnouncementController::class, 'getAnnouncements']);
     Route::post('/committee/announcements/add', [AnnouncementController::class, 'addAnnouncement']);
     Route::put('/committee/announcements/edit', [AnnouncementController::class, 'editAnnouncement']);
     Route::post('/committee/announcements/delete', [AnnouncementController::class, 'deleteAnnouncement']);
