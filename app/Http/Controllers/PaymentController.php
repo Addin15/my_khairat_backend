@@ -18,7 +18,7 @@ class PaymentController extends Controller
         $response = DB::table('payments')
         ->where('payments.mosque_id', $mosque)
         ->join('people', 'payments.payer_id', '=', 'people.user_id')
-        ->select('payments.*', 'people.*')->get();
+        ->select('payments.*', 'people.person_expire_month', 'people.person_expire_year', 'people.person_name', 'people.person_expire_month')->get();
         
         return response($response, 200);
     }
