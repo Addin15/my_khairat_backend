@@ -38,7 +38,7 @@
                       @endif
           
                       <div class="form-outline mb-4">
-                        <label class="form-label" ">Email</label>
+                        <label class="form-label" >Email</label>
                         <input type="email" id="typeEmailX-2" class="form-control form-control-lg" name="email" value="{{old('email')}}"/>
                         <span class="text-danger">@error('email') {{ $message }} @enderror</span>
                       </div>
@@ -50,8 +50,14 @@
                       </div>
           
                       <button class="btn btn-primary btn-lg btn-block" type="submit">Login</button>
+                      
           
                       <hr class="my-4">
+                      <ul class="navbar-nav ms-auto align-items-center">
+          <li class="nav-item ms-3">
+            <button class="btn"><a href="{{ route('admin.register') }}">Register</a></button>
+          </li>
+        </ul>
           
                     </div>
                   </div>

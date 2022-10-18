@@ -34,6 +34,34 @@ class AdminController extends Controller
         return redirect('admin');
     }
 
+    function register(Request $request)
+    {
+        $fields = $request->validate([
+            'email' => 'required|string|unique:admins,email',
+            'password' => 'required|string|min:5',
+        ]);
+
+        $user = Admin::create([
+            'email' => $fields['email'],
+            'password' => bcrypt($fields['password']),
+        ]);
+        
+        $response = [
+            'user' => $user,
+        ];
+
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required|min:5',
+        ]);
+
+        $user2 = Admin::where('email', $request->email)->first();
+
+        $request->session()->put('id', $user2->id);
+
+        return redirect('admin');
+    }
+
     public function dashboard() {
         $committees = CommitteeProfile::all();
 

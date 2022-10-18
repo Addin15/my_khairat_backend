@@ -82,11 +82,11 @@
 &nbsp;<br><br></p>
                     <div class="d-xxl-flex justify-content-xxl-center">
                         <div class="col d-xxl-flex flex-column justify-content-xxl-center align-items-xxl-center">
-                            <button class="btn btn-primary bg-success bg-gradient d-xxl-flex" type="button"
+                            <button class="btn btn-primary bg-success bg-gradient d-xxl-flex" type="button" onclick="location.href='admin/login'"
                                 style="background: rgb(78,214,155);border-radius: 11px;padding: 10px;padding-right: 25px;padding-left: 25px;max-width: 250px;text-align: center;">Log
                                 Masuk sebagai Admin</button>
                             <div class="d-flex" style="padding-top: 5px;">
-                                <p>Atau&nbsp;</p><a href="#"
+                                <p>Atau&nbsp;</p><a href="admin/register"
                                     style="color: rgb(78,214,155);font-weight: bold; text-decoration: none;">Daftar</a>
                             </div>
                         </div>

@@ -19,6 +19,7 @@ Route::get('/', function () {
     return view('landing');
 });
 
+
 Auth::routes();
 
 Route::group(['middleware' => ['loggedIn']], function () {
@@ -44,6 +45,11 @@ Route::group(['middleware' => ['notLoggedIn']], function () {
         return view('admin.login');
     });
     Route::post('/admin/login', [AdminController::class, 'login'])->name('admin.login');
+
+    Route::get('/admin/register', function () {
+        return view('admin.register');
+    });
+    Route::post('/admin/register',[AdminController::class, 'register'])->name('admin.register');
 });
 
 
