@@ -24,12 +24,12 @@
     <div class="border border-3 py-2 px-2">
         <div class="row">
             <div class="col-2"><strong>Remark</strong></div>
-            <div class="col-10">{{ $payment->mosque_phone }}</div>
+            <div class="col-10">{{ $payment->remark }}</div>
         </div>
         <hr class="solid">
         <div class="row">
             <div class="col-2"><strong>Prove Image</strong></div>
-            <div class="col-10"><img src="{{ env('FTP_DOMAIN').$payment->prove_url }}" alt="Prove"/></div>
+            <div class="col-10"><img src="{{ 'https://khairatupm.000webhostapp.com/'.$payment->prove_url }}" alt="Prove" width="400px"></div>
         </div>
     </div>
     <div class="my-4"></div>
@@ -59,7 +59,7 @@
             </div>
             <hr class="solid">
             <div class="row">
-                <div class="col-2"><strong>Prove Image</strong></div>
+                <div class="col-2"><strong>Year</strong></div>
                 <div class="col-10">
                     <select class="form-select" name="year">
                         @for($i = date("Y")+5; $i >= date("Y"); $i--)

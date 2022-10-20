@@ -50,7 +50,7 @@
             </div>
             <hr class="solid">
             <div class="row">
-                <div class="col-2"><strong>Prove Image</strong></div>
+                <div class="col-2"><strong>Year</strong></div>
                 <div class="col-10">
                     <select class="form-select" name="year">
                         @for($i = date("Y")+5; $i >= date("Y"); $i--)

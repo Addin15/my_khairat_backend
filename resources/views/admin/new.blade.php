@@ -33,7 +33,7 @@
                     <div class="my-3"></div>
                     <div class="row w-100">
                         <div class="col-2"><strong>Registration Payment Prove</strong></div>
-                        <div class="col-10"><img src="{{ 'https://mykhairat.000webhostapp.com/'.$committee->mosque_registration_prove }}" alt="Prove" width="400px"></div>
+                        <div class="col-10"><img src="{{ 'https://khairatupm.000webhostapp.com/'.$committee->mosque_registration_prove }}" alt="Prove" width="400px"></div>
                     </div>
 
                     <div class="my-3"></div>
