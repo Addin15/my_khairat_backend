@@ -42,6 +42,7 @@ Route::post('/admin/login', [AdminController::class, 'login']);
 Route::post('/admin/register', [AdminController::class, 'register']);
 
 Route::get('/mosque/all', [CommitteeController::class, 'getMosques']);
+Route::get('/mosque/accepted', [CommitteeController::class, 'getAcceptedMosques']);
 Route::get('/mosque/{mosqueID}', [CommitteeController::class, 'getMosque']);
 Route::get('/village/{villageID}', [CommitteeController::class, 'getVillage']);
 Route::get('/mosque/{mosque_id}/village/all', [CommitteeController::class, 'getVillages']);

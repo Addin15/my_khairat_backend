@@ -27,7 +27,16 @@
             @foreach($payments as $payment)
             @if($payment->is_done == 1) 
             <div class="row my-2">
-                <div class="col-10">{{ $payment->mosque_name }}</div>
+                <div class="col-10">{{ $payment->mosque_name }}
+
+                    
+                @if ($payment->is_rejected == 0)
+                <span style="color: green; font-weight: bold; font-style: italic"> (Accepted) </span>
+                @else
+                <span style="color: red; font-weight: bold; font-style: italic"> (Rejected) </span>
+                @endif
+                </div>
+
                 <div class="col-2">
                     <form action="{{ route('admin.payment.only.view') }}" method="POST">
                         @csrf

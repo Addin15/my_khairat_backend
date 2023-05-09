@@ -225,6 +225,13 @@ class CommitteeController extends Controller
         return response($response, 200);
     }
 
+    function getAcceptedMosques(Request $request)
+    {
+        $response = CommitteeProfile::where('mosque_status', 'completed')->get();
+
+        return response($response, 200);
+    }
+
     function getVillages(Request $request)
     {
         $response = Village::where('mosque_id', request('mosque_id'))->get();
